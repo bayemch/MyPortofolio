@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CV - Bryan Christian</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="bg-dots" aria-hidden="true">
+        <div class="bg-dots-move"></div>
+    </div>
+    <div class="container">
+
+        <div class="header">
+            <div class="hero">
+                <!-- Ganti foto-placeholder.svg dengan foto Anda, misalnya foto.jpg -->
+                <div class="photo-frame">
+                    <img src="foto-placeholder.svg" alt="Foto Bryan Christian">
+                </div>
+
+                <div class="hero-text">
+                    <h1>Bryan Christian</h1>
+                    <p class="role">Web Developer</p>
+                    <ul class="contact">
+                        <li><a href="mailto:bryancristian889@gmail.com">bryancristian889@gmail.com</a></li>
+                        <li><a href="tel:0812xxxxxxxx">0812-xxxx-xxxx</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <p class="summary">
+                Web developer fresh graduate yang antusias dan cepat belajar, dengan
+                kemampuan pemrograman di Java, C#, dan PHP. Terbiasa membangun aplikasi
+                web dan siap berkontribusi dalam tim pengembangan sambil terus
+                mengembangkan keterampilan teknis.
+            </p>
+        </div>
+
+        <!-- MENU UTAMA -->
+        <div class="main-menu" id="main-menu">
+            <button class="menu-button" data-target="proyek">Proyek</button>
+            <button class="menu-button" data-target="pengalaman">Pengalaman</button>
+            <button class="menu-button" data-target="pendidikan">Pendidikan</button>
+            <button class="menu-button" data-target="skill">Skill</button>
+            <button class="menu-button" data-target="social">Social Media</button>
+
+            <!--
+                CARA MENAMBAHKAN PDF:
+                1. Simpan CV Anda dalam bentuk PDF, lalu taruh di folder yang sama dengan index.html.
+                2. Ganti "cv-bryan-christian.pdf" di bawah dengan nama file PDF Anda (harus sama persis,
+                   termasuk huruf besar-kecil dan .pdf).
+                3. Ganti data-download-name kalau ingin mengubah nama file saat diunduh pengunjung.
+                Kalau PDF ada di subfolder, tulis path-nya, misalnya "pdf/cv-bryan-christian.pdf".
+            -->
+            <button class="menu-button" data-download="cv-bryan-christian.pdf"
+                data-download-name="cv-bryan-christian.pdf">Download PDF</button>
+        </div>
+
+        <!-- ISI SETIAP MENU (tersembunyi sampai dipilih) -->
+        <div class="panel" id="proyek" hidden>
+            <button class="back-button"><span class="label">&larr; Kembali</span></button>
+            <h2>Proyek</h2>
+            <div class="panel-body">
+                <div class="entry">
+                    <h3>Sistem Informasi Penjualan (Tugas Akhir)</h3>
+                    <p class="meta">Politeknik/Kampus Anda | 2025</p> <!-- TODO: isi nama kampus asli -->
+                    <ul>
+                        <li>Membangun aplikasi web penjualan menggunakan PHP dan MySQL.</li>
+                        <li>Merancang database dan fitur login, transaksi, serta laporan.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel" id="pengalaman" hidden>
+            <button class="back-button"><span class="label">&larr; Kembali</span></button>
+            <h2>Pengalaman</h2>
+            <div class="panel-body">
+                <div class="entry">
+                    <h3>Praktik Kerja Lapangan (PKL)</h3>
+                    <p class="meta">Nama Perusahaan | 2022</p> <!-- TODO: isi perusahaan dan tahun asli -->
+                    <ul>
+                        <li>Membantu pengelolaan jaringan dan perangkat komputer kantor.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel" id="pendidikan" hidden>
+            <button class="back-button"><span class="label">&larr; Kembali</span></button>
+            <h2>Pendidikan</h2>
+            <div class="panel-body edu-body">
+                <!--
+                    KARTU PENDIDIKAN
+                    - Sisi depan (edu-front): logo sekolah/kampus di tengah.
+                      Ganti src="logo-prisain.svg" dengan file logo Anda (png/jpg/svg di folder yang sama),
+                      dan sesuaikan teks alt.
+                    - Sisi belakang (edu-back): penjelasan yang muncul saat kartu diklik dan berbalik.
+                      Edit teks di dalam <h3> (jurusan), <p class="meta"> (nama sekolah dan tahun),
+                      dan tambahkan <p> baru kalau ingin penjelasan lebih panjang.
+                    - Untuk menambah kartu, salin satu blok <div class="edu-card"> sampai penutupnya.
+                -->
+                <div class="edu-cards">
+
+                    <div class="edu-card" role="button" tabindex="0" aria-pressed="false"
+                        aria-label="Kartu pendidikan D4 TRPL, tekan untuk membalik">
+                        <div class="edu-inner">
+                            <div class="edu-face edu-front">
+                                <div class="edu-logo">
+                                    <img src="img/LogoPrisain.png" alt="Logo Prisain">
+                                </div>
+                                <span class="edu-hint">Klik untuk membalik</span>
+                            </div>
+                            <div class="edu-face edu-back">
+                                <h3>D4 Teknologi Rekayasa Perangkat Lunak (TRPL)</h3>
+                                <p class="meta">Prisain | 20XX - 20XX</p>
+                                <!-- <p>Tambahkan penjelasan lain di sini, misalnya fokus studi atau tugas akhir.</p> -->
+                                <span class="edu-hint">Klik untuk kembali</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="edu-card" role="button" tabindex="0" aria-pressed="false"
+                        aria-label="Kartu pendidikan SMK Rosma, tekan untuk membalik">
+                        <div class="edu-inner">
+                            <div class="edu-face edu-front">
+                                <div class="edu-logo">
+                                    <img src="img/LogoRosma.png" alt="Logo SMK Rosma Karawang">
+                                </div>
+                                <span class="edu-hint">Klik untuk membalik</span>
+                            </div>
+                            <div class="edu-face edu-back">
+                                <h3>SMK Rosma Karawang, Teknik Komputer dan Jaringan (TKJ)</h3>
+                                <p class="meta">2022 - 2025</p>
+                                <span class="edu-hint">Klik untuk kembali</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="panel" id="skill" hidden>
+            <button class="back-button"><span class="label">&larr; Kembali</span></button>
+            <h2>Skill</h2>
+            <div class="panel-body">
+                <!-- Ubah angka data-level (1-10) dan teks 7/10 sesuai kemampuanmu. Level 10 mendapat label MAX. -->
+                <ul class="skill-list">
+                    <li class="skill-row" data-level="7"><span class="skill-name">HTML</span><span
+                            class="skill-level">7/10</span></li>
+                    <li class="skill-row" data-level="6"><span class="skill-name">CSS</span><span
+                            class="skill-level">6/10</span></li>
+                    <li class="skill-row" data-level="5"><span class="skill-name">JavaScript</span><span
+                            class="skill-level">5/10</span></li>
+                    <li class="skill-row" data-level="6"><span class="skill-name">PHP</span><span
+                            class="skill-level">6/10</span></li>
+                    <li class="skill-row" data-level="5"><span class="skill-name">Java</span><span
+                            class="skill-level">5/10</span></li>
+                    <li class="skill-row" data-level="5"><span class="skill-name">C#</span><span
+                            class="skill-level">5/10</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="panel" id="social" hidden>
+            <button class="back-button"><span class="label">&larr; Kembali</span></button>
+            <h2>Social Media</h2>
+            <div class="panel-body">
+                <!-- TODO: ganti "username" dengan akun aslimu -->
+                <ul class="social-list">
+                    <li><a class="social-link" href="https://github.com/username" target="_blank"
+                            rel="noopener noreferrer" aria-label="GitHub: github.com/username"><span class="badge"
+                                aria-hidden="true">GH</span><span><strong>GitHub</strong><span
+                                    class="handle">github.com/username</span></span></a></li>
+                    <li><a class="social-link" href="https://www.linkedin.com/in/username" target="_blank"
+                            rel="noopener noreferrer" aria-label="LinkedIn: linkedin.com/in/username"><span
+                                class="badge" aria-hidden="true">IN</span><span><strong>LinkedIn</strong><span
+                                    class="handle">linkedin.com/in/username</span></span></a></li>
+                    <li><a class="social-link" href="https://www.instagram.com/username" target="_blank"
+                            rel="noopener noreferrer" aria-label="Instagram: @username"><span class="badge"
+                                aria-hidden="true">IG</span><span><strong>Instagram</strong><span
+                                    class="handle">@username</span></span></a></li>
+                    <li><a class="social-link" href="mailto:bryancristian889@gmail.com" target="_blank"
+                            rel="noopener noreferrer" aria-label="Email: bryancristian889@gmail.com"><span class="badge"
+                                aria-hidden="true">@</span><span><strong>Email</strong><span
+                                    class="handle">bryancristian889@gmail.com</span></span></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js" defer></script>
+</body>
+
+</html>
