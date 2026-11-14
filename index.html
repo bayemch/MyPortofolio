@@ -5,6 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>CV - Bryan Christian</title>
+    <script>
+        /* Tentukan tema sebelum halaman digambar agar tidak berkedip */
+        try {
+            var t = localStorage.getItem("theme");
+            if (t !== "light" && t !== "dark") t = matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+            document.documentElement.dataset.theme = t;
+        } catch (e) { document.documentElement.dataset.theme = "dark"; }
+    </script>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -46,6 +54,15 @@
             <button class="menu-button" data-target="pendidikan">Pendidikan</button>
             <button class="menu-button" data-target="skill">Skill</button>
             <button class="menu-button" data-target="social">Social Media</button>
+
+            <!--
+                CARA MENAMBAHKAN PDF:
+                1. Simpan CV Anda dalam bentuk PDF, lalu taruh di folder yang sama dengan index.html.
+                2. Ganti "cv-bryan-christian.pdf" di bawah dengan nama file PDF Anda (harus sama persis,
+                   termasuk huruf besar-kecil dan .pdf).
+                3. Ganti data-download-name kalau ingin mengubah nama file saat diunduh pengunjung.
+                Kalau PDF ada di subfolder, tulis path-nya, misalnya "pdf/cv-bryan-christian.pdf".
+            -->
             <button class="menu-button" data-download="cv-bryan-christian.pdf"
                 data-download-name="cv-bryan-christian.pdf">Download PDF</button>
         </div>
@@ -214,6 +231,13 @@
             </div>
         </div>
     </div>
+
+    <button class="theme-toggle" id="theme-toggle" type="button" role="switch" aria-checked="false"
+        aria-label="Mode terang">
+        <span class="tt-knob" aria-hidden="true"></span>
+        <span class="tt-icon tt-moon" aria-hidden="true">&#9790;</span>
+        <span class="tt-icon tt-sun" aria-hidden="true">&#9728;&#xFE0E;</span>
+    </button>
 
     <script src="script.js" defer></script>
 </body>

@@ -18,6 +18,18 @@
     --line: #2e2e38;
     --accent: #ff5a5a;
     --accent-text: #000000;
+    --ink: #000000;
+    /* hitam: spanduk, bayangan */
+    --paper: #ffffff;
+    /* lapisan terang di belakang bentuk menu */
+    --alt: #2a2a33;
+    /* permukaan sekunder (segmen kosong, hover baris) */
+    --dot: rgba(255, 255, 255, 0.5);
+    --rib: rgba(217, 45, 45, 0.16);
+    --rib2: rgba(255, 255, 255, 0.05);
+    --rib-strong: rgba(217, 45, 45, 0.3);
+    --card-a: #26262f;
+    --card-b: #121217;
     --hover: #d92d2d;
     --shape: #9e1520;
     color-scheme: dark;
@@ -81,7 +93,7 @@ body::after {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    background: #22222a;
+    background: var(--alt);
     clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
 }
 
@@ -117,7 +129,7 @@ body::after {
 
 .header h1::after {
     inset: 0 -0.28em;
-    background: #000000;
+    background: var(--ink);
     clip-path: polygon(3% 0, 100% 9%, 97% 100%, 0 91%);
 }
 
@@ -187,7 +199,7 @@ body::after {
 
 .header .contact a:hover::before,
 .header .contact a:focus-visible::before {
-    background: #ffffff;
+    background: var(--paper);
 }
 
 /* Ringkasan: kotak miring, tapi teksnya lurus agar nyaman dibaca */
@@ -277,7 +289,7 @@ body::after {
 
 .menu-button:hover,
 .menu-button:focus-visible {
-    filter: drop-shadow(6px 6px 0 #000000);
+    filter: drop-shadow(6px 6px 0 var(--ink));
 }
 
 /* Lapisan putih di belakang bentuk merah (elemen .layer dibuat oleh JavaScript) */
@@ -285,7 +297,7 @@ body::after {
     position: absolute;
     inset: 2px -14px;
     z-index: -2;
-    background: #ffffff;
+    background: var(--paper);
     clip-path: polygon(2% 0, 98% 10%, 100% 96%, 0 88%);
     transform: translate(-7px, -6px) scaleX(0);
     transform-origin: left center;
@@ -399,7 +411,7 @@ body::after {
     position: absolute;
     inset: 2px -8px;
     z-index: -2;
-    background: #ffffff;
+    background: var(--paper);
     clip-path: polygon(2% 0, 98% 10%, 100% 96%, 0 88%);
     transform: translate(-6px, -5px) scaleX(0);
     transform-origin: left center;
@@ -414,7 +426,7 @@ body::after {
 .back-button:hover,
 .back-button:focus-visible {
     color: #ffffff;
-    filter: drop-shadow(5px 5px 0 #000000);
+    filter: drop-shadow(5px 5px 0 var(--ink));
 }
 
 .back-button:hover::before,
@@ -614,7 +626,7 @@ body::after {
 
 .title-text::after {
     inset: 0 -0.3em;
-    background: #000000;
+    background: var(--ink);
     clip-path: polygon(3% 0, 100% 10%, 97% 100%, 0 90%);
 }
 
@@ -953,9 +965,9 @@ html::before {
     background:
         linear-gradient(115deg,
             transparent 0 54%,
-            rgba(217, 45, 45, 0.16) 54% 61%,
+            var(--rib) 54% 61%,
             transparent 61% 64%,
-            rgba(255, 255, 255, 0.05) 64% 66%,
+            var(--rib2) 64% 66%,
             transparent 66%);
 }
 
@@ -994,7 +1006,7 @@ html::before {
 }
 
 .header .summary:hover::before {
-    filter: drop-shadow(-6px -5px 0 #ffffff) drop-shadow(8px 8px 0 #000000);
+    filter: drop-shadow(-6px -5px 0 var(--paper)) drop-shadow(8px 8px 0 var(--ink));
 }
 
 .header .summary:hover::after {
@@ -1062,7 +1074,7 @@ html::before {
 
 /* Kartu menghadap belakang (setelah diklik): merah hilang, hover jadi putih */
 .edu-card.flipped::before {
-    background: #ffffff;
+    background: var(--paper);
 }
 
 .edu-card.flipped:hover::before {
@@ -1108,11 +1120,11 @@ html::before {
     background:
         linear-gradient(115deg,
             transparent 0 58%,
-            rgba(217, 45, 45, 0.3) 58% 70%,
+            var(--rib-strong) 58% 70%,
             transparent 70% 73%,
-            rgba(255, 255, 255, 0.08) 73% 75%,
+            var(--rib2) 73% 75%,
             transparent 75%),
-        linear-gradient(160deg, #26262f, #121217);
+        linear-gradient(160deg, var(--card-a), var(--card-b));
 }
 
 .edu-logo {
@@ -1245,7 +1257,7 @@ html::before {
 .bg-dots-move {
     position: absolute;
     inset: 0 -16px 0 0;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 1.6px, transparent 1.8px) 0 0 / 16px 16px;
+    background: radial-gradient(circle, var(--dot) 1.6px, transparent 1.8px) 0 0 / 16px 16px;
     animation: dots-left 1.6s linear infinite;
     will-change: transform;
 }
@@ -1265,7 +1277,7 @@ html::before {
 }
 
 .skill-list .skill-row:hover {
-    background: #23232c;
+    background: var(--alt);
     color: var(--text);
     box-shadow: inset 5px 0 0 var(--hover);
 }
@@ -1297,7 +1309,7 @@ html::before {
 .seg {
     flex: 1;
     height: 20px;
-    background: #2a2a33;
+    background: var(--alt);
     clip-path: polygon(22% 0, 100% 0, 78% 100%, 0 100%);
     transition: transform 0.2s ease, filter 0.2s ease;
 }
@@ -1307,7 +1319,7 @@ html::before {
 }
 
 .seg.tip {
-    background: #ffffff;
+    background: var(--paper);
 }
 
 /* Segmen terisi satu per satu; fill-mode "backwards" agar hover tetap bisa mengubah transform */
@@ -1333,7 +1345,7 @@ html::before {
 /* Hover: segmen melompat bergelombang */
 .skill-row:hover .seg.on {
     transform: translateY(-4px);
-    filter: drop-shadow(0 4px 0 #000000);
+    filter: drop-shadow(0 4px 0 var(--ink));
     transition-delay: calc(var(--s, 0) * 25ms);
 }
 
@@ -1401,8 +1413,8 @@ html::before {
 
 .social-link:hover .badge,
 .social-link:focus-visible .badge {
-    background: #ffffff;
-    color: #000000;
+    background: var(--paper);
+    color: var(--ink);
 }
 
 .social-link:hover .handle,
@@ -1499,7 +1511,7 @@ html::before {
 
 .project-list li:hover,
 .project-list li:focus-within {
-    filter: drop-shadow(8px 8px 0 #000000);
+    filter: drop-shadow(8px 8px 0 var(--ink));
     transform: translateX(8px);
 }
 
@@ -1538,7 +1550,7 @@ html::before {
 .project-tags {
     flex: 0 0 auto;
     padding: 0.2em 1em;
-    background: #000000;
+    background: var(--ink);
     color: #ffffff;
     font-size: 0.8rem;
     font-weight: 700;
@@ -1597,5 +1609,134 @@ html::before {
     .project-card,
     .project-go {
         transition: none;
+    }
+}
+
+
+/* ===== Mode terang: Persona 3 Reload (biru langit, cyan, navy, bentuk lebih bersih) ===== */
+:root[data-theme="light"] {
+    --bg: #e4f3ff;
+    --surface: #ffffff;
+    --text: #0a1b45;
+    --muted: #3b5a8f;
+    --line: #b9d8f5;
+    --accent: #0a5fd6;
+    --hover: #0b6fe0;
+    --shape: #0b3d91;
+    --ink: #07163a;
+    --paper: #6fd3ff;
+    --alt: #cfe5f8;
+    --dot: rgba(11, 111, 224, 0.4);
+    --rib: rgba(11, 111, 224, 0.16);
+    --rib2: rgba(11, 61, 145, 0.08);
+    --rib-strong: rgba(11, 111, 224, 0.28);
+    --card-a: #ffffff;
+    --card-b: #cfe5f8;
+    color-scheme: light;
+}
+
+/* Sudut layar: lingkaran (bulan) menggantikan segitiga */
+:root[data-theme="light"] body::after {
+    background:
+        radial-gradient(circle at 100% 0, var(--hover) 0 11%, transparent 11.2%),
+        radial-gradient(circle at 0 100%, var(--shape) 0 9%, transparent 9.2%);
+}
+
+/* Bentuk menu: panah/chevron yang lebih rapi, kemiringan lebih kecil */
+:root[data-theme="light"] .menu-button::before,
+:root[data-theme="light"] .menu-button .layer {
+    clip-path: polygon(0 0, 94% 0, 100% 50%, 94% 100%, 0 100%);
+}
+
+:root[data-theme="light"] .project-card {
+    clip-path: polygon(0 0, 97% 0, 100% 50%, 97% 100%, 0 100%);
+}
+
+:root[data-theme="light"] .header h1 {
+    transform: rotate(-1.5deg);
+}
+
+:root[data-theme="light"] .header .role::before {
+    transform: skewX(-8deg);
+}
+
+/* ===== Tuas mode terang/gelap (kanan bawah) ===== */
+.theme-toggle {
+    position: fixed;
+    right: calc(18px + env(safe-area-inset-right, 0px));
+    bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+    z-index: 900;
+    display: flex;
+    align-items: center;
+    width: 88px;
+    height: 42px;
+    padding: 0;
+    border: none;
+    background: var(--ink);
+    color: #ffffff;
+    font-size: 1.1rem;
+    cursor: pointer;
+    clip-path: polygon(6% 0, 100% 0, 94% 100%, 0 100%);
+    transition: background 0.15s ease;
+}
+
+.theme-toggle .tt-knob {
+    position: absolute;
+    top: 3px;
+    left: 5px;
+    width: 40px;
+    height: 36px;
+    background: var(--hover);
+    clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+    transition: transform 0.3s cubic-bezier(0.3, 1.4, 0.4, 1);
+}
+
+.theme-toggle[aria-checked="true"] .tt-knob {
+    transform: translateX(38px);
+}
+
+.theme-toggle .tt-icon {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    opacity: 0.55;
+    text-align: center;
+    transition: opacity 0.2s ease;
+}
+
+.theme-toggle[aria-checked="false"] .tt-moon,
+.theme-toggle[aria-checked="true"] .tt-sun {
+    opacity: 1;
+}
+
+.theme-toggle:focus-visible {
+    background: var(--shape);
+}
+
+.theme-toggle:focus-visible .tt-knob {
+    box-shadow: inset 0 0 0 2px #ffffff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .theme-toggle,
+    .theme-toggle .tt-knob,
+    .theme-toggle .tt-icon {
+        transition: none;
+    }
+}
+
+@media print {
+    .theme-toggle {
+        display: none;
+    }
+
+    :root,
+    :root[data-theme="light"] {
+        --bg: #ffffff;
+        --surface: #ffffff;
+        --text: #000000;
+        --muted: #444444;
+        --ink: #000000;
     }
 }

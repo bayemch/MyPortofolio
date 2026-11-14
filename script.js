@@ -2,6 +2,7 @@ const mainMenu = document.getElementById("main-menu");
 const panels = document.querySelectorAll(".panel");
 
 // Warna merah biasa (terang) untuk huruf acak di menu utama
+const lightBlues = ["#0b6fe0", "#0a5fd6", "#0b3d91", "#1a56c4", "#0868d6"];
 const darkReds = ["#e11d2e", "#ff2a2a", "#d92d2d", "#f03a3a", "#ff4040"];
 const menuButtons = document.querySelectorAll(".menu-button");
 
@@ -38,9 +39,10 @@ function buildMenuLabels() {
 
 // Acak ulang huruf mana yang berwarna merah gelap
 function randomizeLetters() {
+    const palette = document.documentElement.dataset.theme === "light" ? lightBlues : darkReds;
     document.querySelectorAll(".menu-button .ch").forEach((span) => {
         if (Math.random() < 0.4) {
-            const color = darkReds[Math.floor(Math.random() * darkReds.length)];
+            const color = palette[Math.floor(Math.random() * palette.length)];
             span.style.setProperty("--c", color);
         } else {
             span.style.removeProperty("--c");
@@ -296,4 +298,30 @@ document.querySelectorAll(".back-button").forEach((btn) => {
 // Tombol Escape juga bisa dipakai untuk kembali
 document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && mainMenu.hidden) runTransition(showMenu, true, "Menu");
+});
+
+// ===== Mode terang/gelap: gelap = Persona 5 Royal, terang = Persona 3 Reload =====
+const root = document.documentElement;
+const themeBtn = document.getElementById("theme-toggle");
+const barPalettes = {
+    dark: barColors,
+    light: ["#07163a", "#ffffff", "#0b6fe0", "#07163a", "#0b3d91", "#ffffff", "#07163a"]
+};
+
+function applyTheme(theme, save = true) {
+    root.dataset.theme = theme;
+    themeBtn.setAttribute("aria-checked", theme === "light");
+    overlay.querySelectorAll(".bar").forEach((bar, i) => bar.style.setProperty("--c", barPalettes[theme][i]));
+    randomizeLetters();
+    if (save) {
+        try { localStorage.setItem("theme", theme); } catch (e) { /* abaikan */ }
+    }
+}
+
+applyTheme(root.dataset.theme === "light" ? "light" : "dark", false);
+
+// Ganti tema dengan transisi layar; tulisan besarnya nama gamenya
+themeBtn.addEventListener("click", () => {
+    const next = root.dataset.theme === "light" ? "dark" : "light";
+    runTransition(() => applyTheme(next), false, next === "light" ? "Reload" : "Royal");
 });
