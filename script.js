@@ -134,7 +134,7 @@ function showPanel(id) {
     panels.forEach((p) => (p.hidden = p.id !== id));
     const panel = document.getElementById(id);
     // Nomor urut dipakai CSS agar tiap entri meluncur masuk bergantian
-    panel.querySelectorAll(".entry, .skill-list li, .social-list li, .edu-card").forEach((item, k) => {
+    panel.querySelectorAll(".entry, .skill-list li, .social-list li, .project-list li, .edu-card").forEach((item, k) => {
         item.style.setProperty("--k", k);
     });
     panel.querySelector(".back-button").focus();

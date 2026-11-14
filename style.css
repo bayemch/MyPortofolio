@@ -1450,3 +1450,152 @@ html::before {
         display: none;
     }
 }
+
+/* ===== Project: kartu jajar genjang lebar dan pendek ===== */
+.panel-body.project-body {
+    padding: 8px 0 0;
+    background: none;
+}
+
+.project-group+.project-group {
+    margin-top: 34px;
+}
+
+.project-cat {
+    position: relative;
+    isolation: isolate;
+    display: inline-block;
+    margin: 0 0 18px 8px;
+    padding: 0.1em 1.2em;
+    color: #ffffff;
+    font-family: "FontCV", system-ui, sans-serif;
+    font-size: 1.7rem;
+    font-weight: 400;
+}
+
+.project-cat::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--hover);
+    transform: skewX(-16deg);
+}
+
+.project-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/* Bayangan hitam ada di <li> karena clip-path pada kartu akan memotongnya */
+.project-list li {
+    filter: drop-shadow(6px 6px 0 var(--shape));
+    transition: filter 0.2s ease, transform 0.2s ease;
+}
+
+.project-list li:hover,
+.project-list li:focus-within {
+    filter: drop-shadow(8px 8px 0 #000000);
+    transform: translateX(8px);
+}
+
+.project-card {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    min-height: 76px;
+    padding: 12px 6% 12px 5%;
+    background: var(--surface);
+    color: var(--text);
+    text-decoration: none;
+    clip-path: polygon(3% 0, 100% 0, 97% 100%, 0 100%);
+    transition: background 0.18s ease, color 0.18s ease;
+}
+
+.project-info {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.project-info strong {
+    font-family: "FontCV", system-ui, sans-serif;
+    font-size: 1.45rem;
+    font-weight: 400;
+    line-height: 1.2;
+}
+
+.project-desc {
+    color: var(--muted);
+    font-size: 0.92rem;
+}
+
+.project-tags {
+    flex: 0 0 auto;
+    padding: 0.2em 1em;
+    background: #000000;
+    color: #ffffff;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transform: skewX(-16deg);
+}
+
+.project-go {
+    flex: 0 0 auto;
+    color: var(--hover);
+    font-size: 1.2rem;
+    transition: transform 0.18s ease, color 0.18s ease;
+}
+
+.project-card:hover,
+.project-card:focus-visible {
+    background: var(--hover);
+    color: #ffffff;
+    outline: none;
+}
+
+.project-card:hover .project-desc,
+.project-card:focus-visible .project-desc {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.project-card:hover .project-go,
+.project-card:focus-visible .project-go {
+    color: #ffffff;
+    transform: translateX(6px);
+}
+
+.panel:not([hidden]) .project-list li {
+    animation: item-in 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    animation-delay: calc(0.3s + var(--k, 0) * 90ms);
+}
+
+@media (max-width: 640px) {
+    .project-card {
+        flex-wrap: wrap;
+        gap: 6px 12px;
+    }
+
+    .project-tags {
+        order: 3;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .panel:not([hidden]) .project-list li {
+        animation: none;
+    }
+
+    .project-list li,
+    .project-card,
+    .project-go {
+        transition: none;
+    }
+}
