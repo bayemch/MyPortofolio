@@ -2,7 +2,7 @@ const mainMenu = document.getElementById("main-menu");
 const panels = document.querySelectorAll(".panel");
 
 // Warna merah biasa (terang) untuk huruf acak di menu utama
-const lightBlues = ["#0b6fe0", "#0a5fd6", "#0b3d91", "#1a56c4", "#0868d6"];
+const lightBlues = ["#ffffff", "#e6fbff", "#9cf0ff", "#6fe9ff", "#c9f7ff"];
 const darkReds = ["#e11d2e", "#ff2a2a", "#d92d2d", "#f03a3a", "#ff4040"];
 const menuButtons = document.querySelectorAll(".menu-button");
 
@@ -305,7 +305,7 @@ const root = document.documentElement;
 const themeBtn = document.getElementById("theme-toggle");
 const barPalettes = {
     dark: barColors,
-    light: ["#07163a", "#ffffff", "#0b6fe0", "#07163a", "#0b3d91", "#ffffff", "#07163a"]
+    light: ["#02062b", "#ffffff", "#0a1fd8", "#02062b", "#38d9f5", "#ffffff", "#02062b"]
 };
 
 function applyTheme(theme, save = true) {
