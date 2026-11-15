@@ -88,17 +88,22 @@ const nameEl = document.querySelector(".header h1");
 const nameText = nameEl.textContent.trim();
 nameEl.setAttribute("aria-label", nameText);
 nameEl.textContent = "";
-[...nameText].forEach((ch, k) => {
-    if (ch === " ") {
-        nameEl.appendChild(document.createTextNode(" "));
-        return;
-    }
-    const span = document.createElement("span");
-    span.className = "letter";
-    span.setAttribute("aria-hidden", "true");
-    span.style.setProperty("--k", k);
-    span.textContent = ch;
-    nameEl.appendChild(span);
+let letterIndex = 0;
+nameText.split(" ").forEach((word, w) => {
+    if (w > 0) nameEl.appendChild(document.createTextNode(" "));
+    // Satu kata = satu pembungkus nowrap, jadi baris hanya boleh putus di antara kata
+    const wordEl = document.createElement("span");
+    wordEl.className = "word";
+    [...word].forEach((ch) => {
+        const span = document.createElement("span");
+        span.className = "letter";
+        span.setAttribute("aria-hidden", "true");
+        span.style.setProperty("--k", letterIndex++);
+        span.textContent = ch;
+        wordEl.appendChild(span);
+    });
+    nameEl.appendChild(wordEl);
+    letterIndex++; // celah spasi tetap dihitung agar jeda animasi sama seperti sebelumnya
 });
 
 // Tiap huruf nama punya arah gerak dan kemiringan sendiri saat di-hover
@@ -121,7 +126,14 @@ function finishIntro() {
     nameEl.classList.add("ready");
 }
 
+// Penanda posisi: pilar kiri (mode terang) menampilkan nama menu yang sedang dibuka
+function setSection(name) {
+    document.body.dataset.section = name;
+    document.body.style.setProperty("--len", name.length);
+}
+
 function showMenu() {
+    setSection("Menu");
     panels.forEach((p) => (p.hidden = true));
     mainMenu.hidden = false;
     header.hidden = false;
@@ -134,6 +146,12 @@ function showPanel(id) {
     header.hidden = true; // header disembunyikan agar fokus ke isi menu
     finishIntro();
     panels.forEach((p) => (p.hidden = p.id !== id));
+    const current = [...menuButtons].find((b) => b.dataset.target === id);
+    setSection(current ? current.dataset.label : id);
+    document.querySelectorAll(".quick-link").forEach((link) => {
+        if (link.dataset.target === id) link.setAttribute("aria-current", "page");
+        else link.removeAttribute("aria-current");
+    });
     const panel = document.getElementById(id);
     // Nomor urut dipakai CSS agar tiap entri meluncur masuk bergantian
     panel.querySelectorAll(".entry, .skill-list li, .social-list li, .project-list li, .edu-card").forEach((item, k) => {
@@ -297,7 +315,7 @@ document.querySelectorAll(".back-button").forEach((btn) => {
 
 // Tombol Escape juga bisa dipakai untuk kembali
 document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && mainMenu.hidden) runTransition(showMenu, true, "Menu");
+    if (e.key === "Escape" && mainMenu.hidden && !document.querySelector("dialog[open]")) runTransition(showMenu, true, "Menu");
 });
 
 // ===== Mode terang/gelap: gelap = Persona 5 Royal, terang = Persona 3 Reload =====
@@ -324,4 +342,101 @@ applyTheme(root.dataset.theme === "light" ? "light" : "dark", false);
 themeBtn.addEventListener("click", () => {
     const next = root.dataset.theme === "light" ? "dark" : "light";
     runTransition(() => applyTheme(next), false, next === "light" ? "Reload" : "Royal");
+});
+
+// ===== Navigasi cepat: pindah antar menu tanpa kembali ke menu utama =====
+const sectionButtons = [...menuButtons].filter((b) => b.dataset.target);
+
+function goTo(id) {
+    const open = [...panels].find((p) => !p.hidden);
+    if (open && open.id === id) return;
+    const btn = sectionButtons.find((b) => b.dataset.target === id);
+    runTransition(() => showPanel(id), false, btn.dataset.label);
+}
+
+panels.forEach((panel) => {
+    const nav = document.createElement("nav");
+    nav.className = "quick-nav";
+    nav.setAttribute("aria-label", "Pindah ke menu lain");
+    sectionButtons.forEach((b) => {
+        const link = document.createElement("button");
+        link.type = "button";
+        link.className = "quick-link";
+        link.dataset.target = b.dataset.target;
+        link.textContent = b.dataset.label;
+        link.addEventListener("click", () => goTo(b.dataset.target));
+        nav.appendChild(link);
+    });
+    panel.querySelector(".back-button").insertAdjacentElement("afterend", nav);
+});
+
+// Panah kiri/kanan: menu sebelumnya/berikutnya saat sedang di dalam sebuah menu
+document.addEventListener("keydown", (e) => {
+    if (!mainMenu.hidden || document.querySelector("dialog[open]") || (e.key !== "ArrowRight" && e.key !== "ArrowLeft")) return;
+    const open = [...panels].find((p) => !p.hidden);
+    if (!open) return;
+    const i = sectionButtons.findIndex((b) => b.dataset.target === open.id);
+    const step = e.key === "ArrowRight" ? 1 : -1;
+    goTo(sectionButtons[(i + step + sectionButtons.length) % sectionButtons.length].dataset.target);
+});
+
+setSection("Menu");
+
+// ===== Pratinjau project: klik thumbnail membuka layar penuh dengan animasi halus =====
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightbox-img");
+const lightboxCap = document.getElementById("lightbox-cap");
+
+function closeLightbox() {
+    lightbox.classList.remove("open");
+    setTimeout(() => lightbox.open && lightbox.close(), reduceMotion ? 0 : 300);
+}
+
+document.querySelectorAll(".project-thumb").forEach((btn) => {
+    btn.addEventListener("click", () => {
+        const img = btn.querySelector("img");
+        lightboxImg.src = img.currentSrc || img.src;
+        lightboxImg.alt = "Tangkapan layar " + btn.getAttribute("aria-label").replace("Perbesar tangkapan layar: ", "");
+        lightboxCap.textContent = btn.dataset.title.replace("&amp;", "&");
+        lightbox.showModal();
+        requestAnimationFrame(() => lightbox.classList.add("open"));
+    });
+});
+
+// Klik di luar gambar atau tombol Tutup = tutup; Esc juga memakai animasi yang sama
+lightbox.addEventListener("click", (e) => {
+    if (e.target === lightbox || e.target.closest(".lightbox-close")) closeLightbox();
+});
+lightbox.addEventListener("cancel", (e) => {
+    e.preventDefault();
+    closeLightbox();
+});
+
+// ===== Latar laut mode terang: gelembung naik pelan + bulan (CSS menyembunyikannya di mode gelap) =====
+function buildSea() {
+    const sea = document.createElement("div");
+    sea.className = "bg-sea";
+    sea.setAttribute("aria-hidden", "true");
+    sea.innerHTML = '<div class="sea-moon"></div>';
+    for (let i = 0; i < 18; i++) {
+        const bubble = document.createElement("span");
+        bubble.className = "bubble";
+        bubble.style.cssText =
+            "--x:" + (Math.random() * 100).toFixed(1) + "%;" +
+            "--s:" + (6 + Math.random() * 22).toFixed(0) + "px;" +
+            "--d:" + (9 + Math.random() * 10).toFixed(1) + "s;" +
+            "--delay:" + (-Math.random() * 18).toFixed(1) + "s;" +
+            "--sway:" + (Math.random() * 60 - 30).toFixed(0) + "px";
+        sea.appendChild(bubble);
+    }
+    document.body.prepend(sea);
+}
+buildSea();
+
+// Tier level skill untuk screen reader dan tooltip (selaras dengan legenda)
+document.querySelectorAll(".skill-bar").forEach((bar) => {
+    const level = parseInt(bar.getAttribute("aria-valuenow"), 10);
+    const tier = level >= 9 ? "Ahli" : level >= 7 ? "Mahir" : level >= 4 ? "Menengah" : "Dasar";
+    bar.setAttribute("aria-valuetext", level + " dari 10, " + tier);
+    bar.title = tier;
 });

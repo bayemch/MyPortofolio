@@ -1,20 +1,4 @@
 @font-face {
-    font-family: "Rodin";
-    src: url("font/rodin-ub.woff") format("woff");
-    font-weight: 100 900;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "RodinM";
-    src: url("font/rodin-m.woff") format("woff");
-    font-weight: 100 900;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
     font-family: "FontCV";
     src: url("font/Persona5MenuFontPrototype-Regular.ttf") format("truetype");
     font-weight: normal;
@@ -1647,8 +1631,8 @@ html::before {
 
 /* ===== Mode terang: Persona 3 Reload (referensi: layar judul, menu, dan Load Game) ===== */
 :root[data-theme="light"] {
-    --font-display: "Rodin", "FontCV", system-ui, sans-serif;
-    --font-body: "RodinM", system-ui, sans-serif;
+    --font-display: "Barlow Condensed", "Arial Narrow", system-ui, sans-serif;
+    --font-body: "Barlow", system-ui, sans-serif;
     --bg: rgba(18, 18, 84, 0.9);
     --surface: rgba(22, 22, 92, 0.92);
     --text: #ffffff;
@@ -1658,6 +1642,8 @@ html::before {
     --hover: #38d9f5;
     --on-hover: #05104d;
     --shape: #0a1fd8;
+    --sel: #2f7bff;
+    /* pita menu terpilih: biru lebih muda agar terlihat di latar biru */
     --ink: #02062b;
     --paper: #ffffff;
     --alt: rgba(143, 180, 255, 0.18);
@@ -1694,25 +1680,37 @@ html::before {
     padding-left: calc(var(--bar-w) + 20px);
 }
 
-/* Layar lebar: huruf vertikal raksasa hitam di tepi kiri, seperti layar menu Persona 3 Reload */
+/* Layar lebar: pilar putih selebar teks, dari atas layar ke bawah. Tulisan hitam vertikal di dasarnya
+   menunjukkan menu yang sedang dibuka (diatur JavaScript lewat data-section dan --len) */
 @media (min-width: 1280px) {
     :root[data-theme="light"] {
         --bar-w: 0px;
+        --menu-fs: clamp(90px, 16vh, 170px);
+    }
+
+    /* Menu bernama panjang (Social Media) otomatis mengecil agar muat di tinggi layar */
+    :root[data-theme="light"] body {
+        --fs: min(var(--menu-fs), calc(88vh / (var(--len, 4) * 0.52)));
     }
 
     :root[data-theme="light"] body::before {
-        content: "MENU";
-        width: auto;
-        left: -0.04em;
-        background: none;
+        content: attr(data-section);
+        box-sizing: border-box;
+        left: 0;
+        width: calc(var(--fs) * 0.8);
+        background: #ffffff;
+        box-shadow: 6px 0 0 var(--shape);
         color: #000000;
         font-family: var(--font-display);
-        font-size: clamp(90px, 16vh, 170px);
+        font-size: var(--fs);
+        font-weight: 800;
         line-height: 0.8;
-        letter-spacing: -0.02em;
+        letter-spacing: 0;
+        text-transform: uppercase;
         white-space: nowrap;
         writing-mode: vertical-rl;
         transform: rotate(180deg);
+        transition: width 0.3s ease;
     }
 }
 
@@ -1723,10 +1721,24 @@ html::before {
         linear-gradient(160deg, transparent 0 88%, rgba(2, 6, 43, 0.35) 88.2%);
 }
 
+:root[data-theme="light"] .menu-button,
+:root[data-theme="light"] .back-button,
+:root[data-theme="light"] .header h1,
+:root[data-theme="light"] .panel h2,
+:root[data-theme="light"] .project-cat,
+:root[data-theme="light"] .skill-name,
+:root[data-theme="light"] .skill-level,
+:root[data-theme="light"] .social-link strong,
+:root[data-theme="light"] .project-info strong {
+    font-weight: 800;
+}
+
 /* Judul: tegak, tanpa spanduk; balok biru royal di kiri seperti "PRESS ANY BUTTON" */
 :root[data-theme="light"] .header h1 {
     padding-left: 0.5em;
-    letter-spacing: -0.01em;
+    max-width: 100%;
+    font-size: clamp(2.4rem, 9vw, 4.2rem);
+    letter-spacing: 0.01em;
     text-transform: uppercase;
     transform: none;
 }
@@ -1766,7 +1778,7 @@ html::before {
     text-shadow: 0.05em 0.05em 0 var(--shape);
 }
 
-/* Menu utama: teks putih rata kanan; terpilih = pita biru royal selebar baris, huruf hanya garis tepi */
+/* Menu utama: teks putih rata kiri; terpilih = pita biru royal selebar baris, huruf hanya garis tepi */
 :root[data-theme="light"] .main-menu {
     max-width: none;
     margin-top: 48px;
@@ -1775,15 +1787,17 @@ html::before {
 
 :root[data-theme="light"] .menu-button {
     align-self: stretch;
-    padding: 6px 28px 6px 80px;
-    letter-spacing: -0.02em;
-    text-align: right;
+    padding: 6px 80px 6px 28px;
+    letter-spacing: 0.01em;
+    font-size: 2.9rem;
+    text-align: left;
 }
 
 :root[data-theme="light"] .menu-button::before {
     inset: 0;
+    background: var(--shape);
     clip-path: none;
-    transform-origin: right center;
+    transform-origin: left center;
 }
 
 :root[data-theme="light"] .menu-button .layer,
@@ -1944,5 +1958,330 @@ html::before {
         --text: #000000;
         --muted: #444444;
         --ink: #000000;
+    }
+}
+
+/* Nama: satu kata tidak boleh terpotong di tengah (memperbaiki "CHRISTI / AN") */
+.header h1 .word {
+    display: inline-block;
+    white-space: nowrap;
+}
+
+/* ===== Navigasi cepat antar menu di dalam panel ===== */
+.quick-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 14px 0 4px;
+}
+
+.quick-link {
+    padding: 6px 18px;
+    border: none;
+    background: var(--ink);
+    color: var(--text);
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    cursor: pointer;
+    clip-path: polygon(8% 0, 100% 0, 92% 100%, 0 100%);
+    transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+
+.quick-link:hover,
+.quick-link:focus-visible {
+    background: var(--shape);
+    color: #ffffff;
+    outline: none;
+    transform: translateY(-2px);
+}
+
+.quick-link[aria-current="page"] {
+    background: var(--hover);
+    color: var(--on-hover);
+}
+
+:root[data-theme="light"] .quick-link {
+    font-weight: 800;
+}
+
+:root[data-theme="light"] .quick-link:hover,
+:root[data-theme="light"] .quick-link:focus-visible {
+    background: var(--sel);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .quick-link {
+        transition: none;
+    }
+}
+
+@media print {
+    .quick-nav {
+        display: none;
+    }
+}
+
+/* ===== Tagline di bawah peran ===== */
+.header .tagline {
+    max-width: 38ch;
+    margin: 10px 0 0;
+    font-size: 1.05rem;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+/* ===== Project: thumbnail + pratinjau layar penuh ===== */
+.project-list li {
+    display: flex;
+    align-items: stretch;
+    gap: 6px;
+}
+
+.project-card {
+    flex: 1;
+    min-width: 0;
+}
+
+.project-thumb {
+    position: relative;
+    flex: 0 0 clamp(110px, 22%, 170px);
+    padding: 0;
+    overflow: hidden;
+    border: none;
+    background: var(--ink);
+    box-shadow: inset 0 0 0 3px var(--text);
+    clip-path: polygon(0 0, 100% 0, 92% 100%, 0 100%);
+    cursor: zoom-in;
+}
+
+.project-thumb img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.4s ease;
+}
+
+.project-thumb-hint {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    background: rgba(2, 6, 43, 0.55);
+    color: #ffffff;
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.project-list li:hover .project-thumb img,
+.project-thumb:focus-visible img {
+    transform: scale(1.12);
+}
+
+.project-thumb:hover .project-thumb-hint,
+.project-thumb:focus-visible .project-thumb-hint {
+    opacity: 1;
+}
+
+@media (max-width: 640px) {
+    .project-list li {
+        flex-direction: column;
+    }
+
+    .project-thumb {
+        flex: none;
+        height: 150px;
+        clip-path: none;
+    }
+}
+
+.lightbox {
+    max-width: min(92vw, 1100px);
+    max-height: 92vh;
+    padding: 0;
+    overflow: visible;
+    border: none;
+    background: transparent;
+    color: #ffffff;
+}
+
+.lightbox::backdrop {
+    background: rgba(2, 6, 43, 0.8);
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.lightbox.open::backdrop {
+    opacity: 1;
+}
+
+.lightbox figure {
+    margin: 0;
+    opacity: 0;
+    transform: translateY(24px) scale(0.92);
+    transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.1), opacity 0.3s ease;
+}
+
+.lightbox.open figure {
+    opacity: 1;
+    transform: none;
+}
+
+.lightbox img {
+    display: block;
+    width: 100%;
+    max-height: 76vh;
+    object-fit: contain;
+    background: var(--ink);
+    border: 4px solid #ffffff;
+    box-shadow: 10px 10px 0 var(--shape);
+}
+
+.lightbox figcaption {
+    margin-top: 16px;
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    text-transform: uppercase;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: -46px;
+    right: 0;
+    padding: 6px 18px;
+    border: none;
+    background: #ffffff;
+    color: #000000;
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    clip-path: polygon(8% 0, 100% 0, 92% 100%, 0 100%);
+}
+
+.lightbox-close:hover,
+.lightbox-close:focus-visible {
+    background: var(--hover);
+    color: var(--on-hover);
+    outline: none;
+}
+
+/* ===== Legenda level skill ===== */
+.skill-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 18px;
+    margin: 18px 0 0;
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+.skill-legend b {
+    color: var(--text);
+    font-weight: 700;
+}
+
+/* ===== Latar laut (mode terang): bulan berkilau + gelembung naik pelan ===== */
+.bg-sea {
+    display: none;
+}
+
+:root[data-theme="light"] .bg-sea {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    display: block;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.sea-moon {
+    position: absolute;
+    top: -22vmin;
+    right: -18vmin;
+    width: 52vmin;
+    height: 52vmin;
+    border-radius: 50%;
+    background: radial-gradient(circle at 38% 36%,
+            rgba(255, 255, 255, 0.8) 0 18%,
+            rgba(214, 244, 255, 0.6) 19% 52%,
+            rgba(120, 200, 255, 0.28) 53% 70%,
+            transparent 71%);
+    animation: moon-glow 7s ease-in-out infinite;
+}
+
+@keyframes moon-glow {
+    50% {
+        opacity: 0.7;
+        transform: scale(1.05);
+    }
+}
+
+.bubble {
+    position: absolute;
+    bottom: -40px;
+    left: var(--x);
+    width: var(--s);
+    height: var(--s);
+    border: 2px solid rgba(255, 255, 255, 0.55);
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.05) 60%);
+    animation: bubble-up var(--d) linear var(--delay) infinite;
+    will-change: transform;
+}
+
+@keyframes bubble-up {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, 0, 0);
+    }
+
+    10% {
+        opacity: 0.9;
+    }
+
+    90% {
+        opacity: 0.7;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate3d(var(--sway), -115vh, 0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .sea-moon,
+    .bubble {
+        animation: none;
+    }
+
+    .bubble {
+        display: none;
+    }
+
+    .project-thumb img,
+    .project-thumb-hint,
+    .lightbox figure,
+    .lightbox::backdrop {
+        transition: none;
+    }
+}
+
+@media print {
+
+    .bg-sea,
+    .lightbox,
+    .project-thumb {
+        display: none;
     }
 }
