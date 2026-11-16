@@ -440,3 +440,8 @@ document.querySelectorAll(".skill-bar").forEach((bar) => {
     bar.setAttribute("aria-valuetext", level + " dari 10, " + tier);
     bar.title = tier;
 });
+
+// Kartu project HTML tidak punya link: kliknya membuka pratinjau gambar yang sama dengan thumbnail
+document.querySelectorAll(".project-card--shot").forEach((card) => {
+    card.addEventListener("click", () => card.closest("li").querySelector(".project-thumb").click());
+});

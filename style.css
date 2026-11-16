@@ -20,14 +20,10 @@
     --accent-text: #000000;
     --font-display: "FontCV", system-ui, sans-serif;
     --font-body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-    --on-hover: #ffffff;
-    /* warna teks di atas isian --hover */
-    --ink: #000000;
-    /* hitam: spanduk, bayangan */
-    --paper: #ffffff;
-    /* lapisan terang di belakang bentuk menu */
-    --alt: #2a2a33;
-    /* permukaan sekunder (segmen kosong, hover baris) */
+    --on-hover: #ffffff;     /* warna teks di atas isian --hover */
+    --ink: #000000;          /* hitam: spanduk, bayangan */
+    --paper: #ffffff;        /* lapisan terang di belakang bentuk menu */
+    --alt: #2a2a33;          /* permukaan sekunder (segmen kosong, hover baris) */
     --dot: rgba(255, 255, 255, 0.5);
     --rib: rgba(217, 45, 45, 0.16);
     --rib2: rgba(255, 255, 255, 0.05);
@@ -1468,14 +1464,8 @@ html::before {
 }
 
 /* ===== Project: kartu jajar genjang lebar dan pendek ===== */
-.panel-body.project-body {
-    padding: 8px 0 0;
-    background: none;
-}
-
-.project-group+.project-group {
-    margin-top: 34px;
-}
+.panel-body.project-body { padding: 8px 0 0; background: none; }
+.project-group + .project-group { margin-top: 34px; }
 
 .project-cat {
     position: relative;
@@ -1498,26 +1488,12 @@ html::before {
     transform: skewX(-16deg);
 }
 
-.project-list {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
+.project-list { display: flex; flex-direction: column; gap: 16px; margin: 0; padding: 0; list-style: none; }
 
 /* Bayangan hitam ada di <li> karena clip-path pada kartu akan memotongnya */
-.project-list li {
-    filter: drop-shadow(6px 6px 0 var(--shape));
-    transition: filter 0.2s ease, transform 0.2s ease;
-}
-
+.project-list li { filter: drop-shadow(6px 6px 0 var(--shape)); transition: filter 0.2s ease, transform 0.2s ease; }
 .project-list li:hover,
-.project-list li:focus-within {
-    filter: drop-shadow(8px 8px 0 var(--ink));
-    transform: translateX(8px);
-}
+.project-list li:focus-within { filter: drop-shadow(8px 8px 0 var(--ink)); transform: translateX(8px); }
 
 .project-card {
     display: flex;
@@ -1532,24 +1508,9 @@ html::before {
     transition: background 0.18s ease, color 0.18s ease;
 }
 
-.project-info {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    min-width: 0;
-}
-
-.project-info strong {
-    font-family: var(--font-display);
-    font-size: 1.45rem;
-    font-weight: 400;
-    line-height: 1.2;
-}
-
-.project-desc {
-    color: var(--muted);
-    font-size: 0.92rem;
-}
+.project-info { display: flex; flex: 1; flex-direction: column; min-width: 0; }
+.project-info strong { font-family: var(--font-display); font-size: 1.45rem; font-weight: 400; line-height: 1.2; }
+.project-desc { color: var(--muted); font-size: 0.92rem; }
 
 .project-tags {
     flex: 0 0 auto;
@@ -1563,30 +1524,14 @@ html::before {
     transform: skewX(-16deg);
 }
 
-.project-go {
-    flex: 0 0 auto;
-    color: var(--hover);
-    font-size: 1.2rem;
-    transition: transform 0.18s ease, color 0.18s ease;
-}
+.project-go { flex: 0 0 auto; color: var(--hover); font-size: 1.2rem; transition: transform 0.18s ease, color 0.18s ease; }
 
 .project-card:hover,
-.project-card:focus-visible {
-    background: var(--hover);
-    color: var(--on-hover);
-    outline: none;
-}
-
+.project-card:focus-visible { background: var(--hover); color: var(--on-hover); outline: none; }
 .project-card:hover .project-desc,
-.project-card:focus-visible .project-desc {
-    color: rgba(255, 255, 255, 0.9);
-}
-
+.project-card:focus-visible .project-desc { color: rgba(255, 255, 255, 0.9); }
 .project-card:hover .project-go,
-.project-card:focus-visible .project-go {
-    color: #ffffff;
-    transform: translateX(6px);
-}
+.project-card:focus-visible .project-go { color: #ffffff; transform: translateX(6px); }
 
 .panel:not([hidden]) .project-list li {
     animation: item-in 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both;
@@ -1594,26 +1539,13 @@ html::before {
 }
 
 @media (max-width: 640px) {
-    .project-card {
-        flex-wrap: wrap;
-        gap: 6px 12px;
-    }
-
-    .project-tags {
-        order: 3;
-    }
+    .project-card { flex-wrap: wrap; gap: 6px 12px; }
+    .project-tags { order: 3; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .panel:not([hidden]) .project-list li {
-        animation: none;
-    }
-
-    .project-list li,
-    .project-card,
-    .project-go {
-        transition: none;
-    }
+    .panel:not([hidden]) .project-list li { animation: none; }
+    .project-list li, .project-card, .project-go { transition: none; }
 }
 
 
@@ -1642,8 +1574,7 @@ html::before {
     --hover: #38d9f5;
     --on-hover: #05104d;
     --shape: #0a1fd8;
-    --sel: #2f7bff;
-    /* pita menu terpilih: biru lebih muda agar terlihat di latar biru */
+    --sel: #2f7bff;          /* pita menu terpilih: biru lebih muda agar terlihat di latar biru */
     --ink: #02062b;
     --paper: #ffffff;
     --alt: rgba(143, 180, 255, 0.18);
@@ -1676,9 +1607,7 @@ html::before {
     pointer-events: none;
 }
 
-:root[data-theme="light"] .container {
-    padding-left: calc(var(--bar-w) + 20px);
-}
+:root[data-theme="light"] .container { padding-left: calc(var(--bar-w) + 20px); }
 
 /* Layar lebar: pilar putih selebar teks, dari atas layar ke bawah. Tulisan hitam vertikal di dasarnya
    menunjukkan menu yang sedang dibuka (diatur JavaScript lewat data-section dan --len) */
@@ -1729,9 +1658,7 @@ html::before {
 :root[data-theme="light"] .skill-name,
 :root[data-theme="light"] .skill-level,
 :root[data-theme="light"] .social-link strong,
-:root[data-theme="light"] .project-info strong {
-    font-weight: 800;
-}
+:root[data-theme="light"] .project-info strong { font-weight: 800; }
 
 /* Judul: tegak, tanpa spanduk; balok biru royal di kiri seperti "PRESS ANY BUTTON" */
 :root[data-theme="light"] .header h1 {
@@ -1752,31 +1679,18 @@ html::before {
     z-index: -1;
 }
 
-:root[data-theme="light"] .header h1::after {
-    display: none;
-}
+:root[data-theme="light"] .header h1::after { display: none; }
 
 :root[data-theme="light"] .panel h2 {
     padding-left: 14px;
     border-left: 16px solid var(--shape);
 }
 
-:root[data-theme="light"] .header .role::before {
-    transform: skewX(-8deg);
-}
-
+:root[data-theme="light"] .header .role::before { transform: skewX(-8deg); }
 :root[data-theme="light"] .header .role,
-:root[data-theme="light"] .project-cat {
-    color: var(--on-hover);
-}
-
-:root[data-theme="light"] .header .contact a:hover::before {
-    background: var(--shape);
-}
-
-:root[data-theme="light"] .title-text {
-    text-shadow: 0.05em 0.05em 0 var(--shape);
-}
+:root[data-theme="light"] .project-cat { color: var(--on-hover); }
+:root[data-theme="light"] .header .contact a:hover::before { background: var(--shape); }
+:root[data-theme="light"] .title-text { text-shadow: 0.05em 0.05em 0 var(--shape); }
 
 /* Menu utama: teks putih rata kiri; terpilih = pita biru royal selebar baris, huruf hanya garis tepi */
 :root[data-theme="light"] .main-menu {
@@ -1801,19 +1715,13 @@ html::before {
 }
 
 :root[data-theme="light"] .menu-button .layer,
-:root[data-theme="light"] .menu-button::after {
-    display: none;
-}
+:root[data-theme="light"] .menu-button::after { display: none; }
 
 :root[data-theme="light"] .menu-button:hover,
-:root[data-theme="light"] .menu-button:focus-visible {
-    filter: none;
-}
+:root[data-theme="light"] .menu-button:focus-visible { filter: none; }
 
 :root[data-theme="light"] .menu-button:hover .label,
-:root[data-theme="light"] .menu-button:focus-visible .label {
-    transform: none;
-}
+:root[data-theme="light"] .menu-button:focus-visible .label { transform: none; }
 
 :root[data-theme="light"] .menu-button:hover .ch,
 :root[data-theme="light"] .menu-button:focus-visible .ch {
@@ -1824,9 +1732,7 @@ html::before {
 /* Baris Project/Social ala layar "Load Game": panel navy, segitiga di pojok, terpilih = putih + diagonal biru */
 :root[data-theme="light"] .project-list li,
 :root[data-theme="light"] .project-list li:hover,
-:root[data-theme="light"] .project-list li:focus-within {
-    filter: none;
-}
+:root[data-theme="light"] .project-list li:focus-within { filter: none; }
 
 :root[data-theme="light"] .project-card,
 :root[data-theme="light"] .social-link {
@@ -1859,13 +1765,9 @@ html::before {
 :root[data-theme="light"] .project-card:hover .project-go,
 :root[data-theme="light"] .project-card:focus-visible .project-go,
 :root[data-theme="light"] .social-link:hover .handle,
-:root[data-theme="light"] .social-link:focus-visible .handle {
-    color: #2a3a8a;
-}
+:root[data-theme="light"] .social-link:focus-visible .handle { color: #2a3a8a; }
 
-:root[data-theme="light"] .project-card .project-go {
-    color: #6fa5ff;
-}
+:root[data-theme="light"] .project-card .project-go { color: #6fa5ff; }
 
 /* ===== Tuas mode terang/gelap (kanan bawah) ===== */
 .theme-toggle {
@@ -1898,9 +1800,7 @@ html::before {
     transition: transform 0.3s cubic-bezier(0.3, 1.4, 0.4, 1);
 }
 
-.theme-toggle[aria-checked="true"] .tt-knob {
-    transform: translateX(38px);
-}
+.theme-toggle[aria-checked="true"] .tt-knob { transform: translateX(38px); }
 
 .theme-toggle .tt-icon {
     position: relative;
@@ -1912,44 +1812,24 @@ html::before {
 }
 
 .theme-toggle[aria-checked="false"] .tt-moon,
-.theme-toggle[aria-checked="true"] .tt-sun {
-    opacity: 1;
-}
+.theme-toggle[aria-checked="true"] .tt-sun { opacity: 1; }
 
 .theme-toggle[aria-checked="false"] .tt-moon,
-.theme-toggle[aria-checked="true"] .tt-sun {
-    color: var(--on-hover);
-}
+.theme-toggle[aria-checked="true"] .tt-sun { color: var(--on-hover); }
 
-.theme-toggle:focus-visible {
-    background: var(--shape);
-}
-
-.theme-toggle:focus-visible .tt-knob {
-    box-shadow: inset 0 0 0 2px #ffffff;
-}
+.theme-toggle:focus-visible { background: var(--shape); }
+.theme-toggle:focus-visible .tt-knob { box-shadow: inset 0 0 0 2px #ffffff; }
 
 @media (prefers-reduced-motion: reduce) {
-
-    .theme-toggle,
-    .theme-toggle .tt-knob,
-    .theme-toggle .tt-icon {
-        transition: none;
-    }
+    .theme-toggle, .theme-toggle .tt-knob, .theme-toggle .tt-icon { transition: none; }
 }
 
 @media print {
-    .theme-toggle {
-        display: none;
-    }
+    .theme-toggle { display: none; }
 
-    :root[data-theme="light"] body {
-        background: #ffffff;
-    }
+    :root[data-theme="light"] body { background: #ffffff; }
 
-    :root[data-theme="light"] body::before {
-        display: none;
-    }
+    :root[data-theme="light"] body::before { display: none; }
 
     :root,
     :root[data-theme="light"] {
@@ -2002,25 +1882,16 @@ html::before {
     color: var(--on-hover);
 }
 
-:root[data-theme="light"] .quick-link {
-    font-weight: 800;
-}
-
+:root[data-theme="light"] .quick-link { font-weight: 800; }
 :root[data-theme="light"] .quick-link:hover,
-:root[data-theme="light"] .quick-link:focus-visible {
-    background: var(--sel);
-}
+:root[data-theme="light"] .quick-link:focus-visible { background: var(--sel); }
 
 @media (prefers-reduced-motion: reduce) {
-    .quick-link {
-        transition: none;
-    }
+    .quick-link { transition: none; }
 }
 
 @media print {
-    .quick-nav {
-        display: none;
-    }
+    .quick-nav { display: none; }
 }
 
 /* ===== Tagline di bawah peran ===== */
@@ -2033,16 +1904,8 @@ html::before {
 }
 
 /* ===== Project: thumbnail + pratinjau layar penuh ===== */
-.project-list li {
-    display: flex;
-    align-items: stretch;
-    gap: 6px;
-}
-
-.project-card {
-    flex: 1;
-    min-width: 0;
-}
+.project-list li { display: flex; align-items: stretch; gap: 6px; }
+.project-card { flex: 1; min-width: 0; }
 
 .project-thumb {
     position: relative;
@@ -2080,25 +1943,13 @@ html::before {
 }
 
 .project-list li:hover .project-thumb img,
-.project-thumb:focus-visible img {
-    transform: scale(1.12);
-}
-
+.project-thumb:focus-visible img { transform: scale(1.12); }
 .project-thumb:hover .project-thumb-hint,
-.project-thumb:focus-visible .project-thumb-hint {
-    opacity: 1;
-}
+.project-thumb:focus-visible .project-thumb-hint { opacity: 1; }
 
 @media (max-width: 640px) {
-    .project-list li {
-        flex-direction: column;
-    }
-
-    .project-thumb {
-        flex: none;
-        height: 150px;
-        clip-path: none;
-    }
+    .project-list li { flex-direction: column; }
+    .project-thumb { flex: none; height: 150px; clip-path: none; }
 }
 
 .lightbox {
@@ -2118,9 +1969,7 @@ html::before {
     transition: opacity 0.3s ease;
 }
 
-.lightbox.open::backdrop {
-    opacity: 1;
-}
+.lightbox.open::backdrop { opacity: 1; }
 
 .lightbox figure {
     margin: 0;
@@ -2129,10 +1978,7 @@ html::before {
     transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.1), opacity 0.3s ease;
 }
 
-.lightbox.open figure {
-    opacity: 1;
-    transform: none;
-}
+.lightbox.open figure { opacity: 1; transform: none; }
 
 .lightbox img {
     display: block;
@@ -2168,11 +2014,7 @@ html::before {
 }
 
 .lightbox-close:hover,
-.lightbox-close:focus-visible {
-    background: var(--hover);
-    color: var(--on-hover);
-    outline: none;
-}
+.lightbox-close:focus-visible { background: var(--hover); color: var(--on-hover); outline: none; }
 
 /* ===== Legenda level skill ===== */
 .skill-legend {
@@ -2184,15 +2026,10 @@ html::before {
     font-size: 0.9rem;
 }
 
-.skill-legend b {
-    color: var(--text);
-    font-weight: 700;
-}
+.skill-legend b { color: var(--text); font-weight: 700; }
 
 /* ===== Latar laut (mode terang): bulan berkilau + gelembung naik pelan ===== */
-.bg-sea {
-    display: none;
-}
+.bg-sea { display: none; }
 
 :root[data-theme="light"] .bg-sea {
     position: fixed;
@@ -2211,18 +2048,15 @@ html::before {
     height: 52vmin;
     border-radius: 50%;
     background: radial-gradient(circle at 38% 36%,
-            rgba(255, 255, 255, 0.8) 0 18%,
-            rgba(214, 244, 255, 0.6) 19% 52%,
-            rgba(120, 200, 255, 0.28) 53% 70%,
-            transparent 71%);
+        rgba(255, 255, 255, 0.8) 0 18%,
+        rgba(214, 244, 255, 0.6) 19% 52%,
+        rgba(120, 200, 255, 0.28) 53% 70%,
+        transparent 71%);
     animation: moon-glow 7s ease-in-out infinite;
 }
 
 @keyframes moon-glow {
-    50% {
-        opacity: 0.7;
-        transform: scale(1.05);
-    }
+    50% { opacity: 0.7; transform: scale(1.05); }
 }
 
 .bubble {
@@ -2239,49 +2073,74 @@ html::before {
 }
 
 @keyframes bubble-up {
-    0% {
-        opacity: 0;
-        transform: translate3d(0, 0, 0);
-    }
-
-    10% {
-        opacity: 0.9;
-    }
-
-    90% {
-        opacity: 0.7;
-    }
-
-    100% {
-        opacity: 0;
-        transform: translate3d(var(--sway), -115vh, 0);
-    }
+    0%   { opacity: 0; transform: translate3d(0, 0, 0); }
+    10%  { opacity: 0.9; }
+    90%  { opacity: 0.7; }
+    100% { opacity: 0; transform: translate3d(var(--sway), -115vh, 0); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-
-    .sea-moon,
-    .bubble {
-        animation: none;
-    }
-
-    .bubble {
-        display: none;
-    }
-
-    .project-thumb img,
-    .project-thumb-hint,
-    .lightbox figure,
-    .lightbox::backdrop {
-        transition: none;
-    }
+    .sea-moon, .bubble { animation: none; }
+    .bubble { display: none; }
+    .project-thumb img, .project-thumb-hint, .lightbox figure, .lightbox::backdrop { transition: none; }
 }
 
 @media print {
+    .bg-sea, .lightbox, .project-thumb { display: none; }
+}
 
-    .bg-sea,
-    .lightbox,
-    .project-thumb {
-        display: none;
+/* ===== Baris hasil + tombol demo di kartu Project (opsional, lihat komentar di index.html) ===== */
+.project-result {
+    display: block;
+    margin-top: 4px;
+    color: var(--hover);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+}
+
+.project-demo {
+    display: grid;
+    flex: 0 0 auto;
+    place-items: center;
+    padding: 0 22px;
+    background: var(--hover);
+    color: var(--on-hover);
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    text-transform: uppercase;
+    clip-path: polygon(8% 0, 100% 0, 100% 100%, 0 100%);
+    transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+
+.project-demo:hover,
+.project-demo:focus-visible {
+    background: var(--shape);
+    color: #ffffff;
+    outline: none;
+    transform: translateY(-2px);
+}
+
+/* ===== Layar HP (360px): menu tidak meluap, tuas tidak menutupi isi paling bawah ===== */
+.container { padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px)); }
+
+@media (max-width: 640px) {
+    :root[data-theme="light"] .menu-button {
+        padding: 6px 24px 6px 18px;
+        font-size: 2.3rem;
     }
+
+    .project-demo { padding: 10px 0; clip-path: none; }
+}
+
+/* Kartu project HTML berupa tombol (hanya membuka pratinjau gambar) */
+.project-card--shot {
+    width: 100%;
+    border: none;
+    font: inherit;
+    text-align: left;
+    cursor: zoom-in;
+    appearance: none;
 }
