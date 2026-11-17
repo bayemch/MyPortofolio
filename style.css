@@ -1686,6 +1686,8 @@ html::before {
     :root[data-theme="light"] {
         --bar-w: 0px;
         --menu-fs: clamp(90px, 16vh, 170px);
+        --pillar-w: calc(var(--menu-fs) * 0.8 + 28px);
+        /* hanya sedikit lebih lebar dari teks */
     }
 
     /* Menu bernama panjang (Social Media) otomatis mengecil agar muat di tinggi layar */
@@ -1697,14 +1699,15 @@ html::before {
         content: attr(data-section);
         box-sizing: border-box;
         left: 0;
-        width: calc(var(--fs) * 0.8);
+        width: var(--pillar-w);
         background: #ffffff;
-        box-shadow: 6px 0 0 var(--shape);
+        box-shadow: 12px 0 0 var(--shape), 16px 0 0 #ffffff;
         color: #000000;
         font-family: var(--font-display);
         font-size: var(--fs);
         font-weight: 800;
         line-height: 0.8;
+        /* teks mentok di ujung kiri pilar (tanpa padding) */
         letter-spacing: 0;
         text-transform: uppercase;
         white-space: nowrap;
@@ -2351,4 +2354,223 @@ html::before {
     text-align: left;
     cursor: zoom-in;
     appearance: none;
+}
+
+/* ===== Mode gelap (Persona 5 Royal): piringan hitam berputar, setengah terlihat di kanan tengah ===== */
+.vinyl {
+    display: none;
+}
+
+:root:not([data-theme="light"]) .vinyl {
+    /* Besar mengikuti ruang kosong di kanan agar tidak menutupi kotak menu */
+    --vsize: clamp(260px, min(66vmin, calc(100vw - 880px)), 760px);
+    position: fixed;
+    top: 50%;
+    right: calc(var(--vsize) / -2);
+    z-index: -1;
+    display: block;
+    width: var(--vsize);
+    height: var(--vsize);
+    margin-top: calc(var(--vsize) / -2);
+    pointer-events: none;
+}
+
+/* Lapisan merah bergeser di belakang, ciri khas Persona 5 */
+.vinyl::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: var(--hover);
+    transform: translate(-12px, 12px);
+}
+
+/* Kilau cahaya diam (tidak ikut berputar) agar terasa seperti vinyl sungguhan */
+.vinyl::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: conic-gradient(from 25deg,
+            transparent 0 18%, rgba(255, 255, 255, 0.14) 24%, transparent 30% 68%,
+            rgba(255, 255, 255, 0.1) 74%, transparent 80%);
+}
+
+.vinyl-disc {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    animation: vinyl-spin 40s linear infinite;
+    will-change: transform;
+}
+
+@keyframes vinyl-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.v-body {
+    fill: #0a0a0a;
+}
+
+.v-groove {
+    fill: none;
+    stroke: #ffffff;
+    stroke-opacity: 0.09;
+}
+
+.v-edge {
+    fill: none;
+    stroke: #ffffff;
+    stroke-width: 4;
+}
+
+.v-accent {
+    fill: none;
+    stroke: var(--hover);
+    stroke-width: 6;
+}
+
+.v-ring-text {
+    fill: #ffffff;
+    font-family: var(--font-display);
+    font-size: 24px;
+    text-transform: uppercase;
+}
+
+.v-label {
+    fill: var(--hover);
+    stroke: #000000;
+    stroke-width: 4;
+}
+
+.v-label-ring {
+    fill: none;
+    stroke: #000000;
+    stroke-opacity: 0.45;
+    stroke-width: 3;
+}
+
+.v-hole {
+    fill: #000000;
+    stroke: #ffffff;
+    stroke-width: 2;
+}
+
+/* Papan nama menu yang sedang dibuka (tidak ikut berputar) */
+.vinyl-plate {
+    position: absolute;
+    top: 50%;
+    left: -2%;
+    padding: 8px 30px 10px 22px;
+    background: #000000;
+    border-left: 8px solid var(--hover);
+    color: #ffffff;
+    clip-path: polygon(0 0, 100% 0, 94% 100%, 0 100%);
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    transform: translateY(-50%) rotate(-6deg);
+}
+
+.vinyl-plate small {
+    display: block;
+    color: var(--hover);
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+}
+
+.vinyl-plate strong {
+    display: block;
+    font-size: 1.9rem;
+    font-weight: 400;
+    line-height: 1.1;
+    white-space: nowrap;
+}
+
+@media (max-width: 1100px) {
+    .vinyl-plate {
+        display: none;
+    }
+}
+
+/* HP, tablet, dan jendela sempit: piringan dihilangkan, hanya menu yang tampil */
+@media (max-width: 1100px) {
+    :root:not([data-theme="light"]) .vinyl {
+        display: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .vinyl-disc {
+        animation: none;
+    }
+}
+
+@media print {
+    .vinyl {
+        display: none !important;
+    }
+}
+
+/* ===== Tombol matikan animasi (di kiri tuas tema) ===== */
+.motion-toggle {
+    position: fixed;
+    right: calc(18px + 88px + 10px + env(safe-area-inset-right, 0px));
+    bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+    z-index: 900;
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 42px;
+    padding: 0;
+    border: none;
+    background: var(--ink);
+    color: #ffffff;
+    cursor: pointer;
+    clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+    transition: background 0.15s ease;
+}
+
+.motion-toggle svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+}
+
+.motion-toggle .ic-play {
+    display: none;
+}
+
+.motion-toggle[aria-pressed="true"] .ic-play {
+    display: block;
+}
+
+.motion-toggle[aria-pressed="true"] .ic-pause {
+    display: none;
+}
+
+.motion-toggle:hover,
+.motion-toggle:focus-visible {
+    background: var(--shape);
+    outline: none;
+}
+
+/* Saat animasi dimatikan: hentikan efek latar yang berat */
+:root[data-motion="off"] .vinyl-disc,
+:root[data-motion="off"] .sea-moon,
+:root[data-motion="off"] .bubble,
+:root[data-motion="off"] .bg-dots-move {
+    animation: none;
+}
+
+:root[data-motion="off"] .bubble {
+    display: none;
+}
+
+@media print {
+    .motion-toggle {
+        display: none;
+    }
 }

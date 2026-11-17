@@ -4,7 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CV - Bryan Christian</title>
+    <title>Bryan Christian — Web Developer</title>
+    <meta name="description"
+        content="Portofolio Bryan Christian, web developer fresh graduate. Project HTML, CSS, JavaScript, dan PHP dengan tampilan bergaya game.">
+    <meta name="theme-color" content="#0a28d2">
+    <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+    <!-- Pratinjau link (WhatsApp, LinkedIn, dll). TODO: ganti alamat di bawah dengan alamat situsmu setelah dipublikasikan; harus alamat lengkap (https://...) -->
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="id_ID">
+    <meta property="og:title" content="Bryan Christian — Web Developer">
+    <meta property="og:description"
+        content="Portofolio dan CV Bryan Christian: project HTML, CSS, JavaScript, dan PHP.">
+    <meta property="og:image" content="https://USERNAME.github.io/NAMA-REPO/img/og-image.jpg">
+    <meta property="og:url" content="https://USERNAME.github.io/NAMA-REPO/">
+    <meta name="twitter:card" content="summary_large_image">
     <script>
         /* Tentukan tema sebelum halaman digambar agar tidak berkedip */
         try {
@@ -12,6 +25,11 @@
             if (t !== "light" && t !== "dark") t = matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
             document.documentElement.dataset.theme = t;
         } catch (e) { document.documentElement.dataset.theme = "dark"; }
+        /* Animasi: ikuti pilihan tersimpan; kalau belum ada, ikuti pengaturan "kurangi gerakan" dari perangkat */
+        try {
+            var m = localStorage.getItem("motion");
+            document.documentElement.dataset.motion = (m === "off" || (m !== "on" && matchMedia("(prefers-reduced-motion: reduce)").matches)) ? "off" : "on";
+        } catch (e) { document.documentElement.dataset.motion = "on"; }
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,6 +40,39 @@
 </head>
 
 <body data-section="Menu">
+    <div class="vinyl" aria-hidden="true">
+        <svg class="vinyl-disc" viewBox="0 0 400 400" focusable="false">
+            <circle class="v-body" cx="200" cy="200" r="198" />
+            <circle class="v-groove" cx="200" cy="200" r="72" />
+            <circle class="v-groove" cx="200" cy="200" r="80" />
+            <circle class="v-groove" cx="200" cy="200" r="88" />
+            <circle class="v-groove" cx="200" cy="200" r="96" />
+            <circle class="v-groove" cx="200" cy="200" r="104" />
+            <circle class="v-groove" cx="200" cy="200" r="112" />
+            <circle class="v-groove" cx="200" cy="200" r="120" />
+            <circle class="v-groove" cx="200" cy="200" r="128" />
+            <circle class="v-groove" cx="200" cy="200" r="136" />
+            <circle class="v-groove" cx="200" cy="200" r="144" />
+            <circle class="v-groove" cx="200" cy="200" r="152" />
+            <circle class="v-groove" cx="200" cy="200" r="160" />
+            <circle class="v-groove" cx="200" cy="200" r="168" />
+            <circle class="v-groove" cx="200" cy="200" r="176" />
+            <circle class="v-groove" cx="200" cy="200" r="184" />
+            <circle class="v-groove" cx="200" cy="200" r="192" />
+            <circle class="v-edge" cx="200" cy="200" r="197" />
+            <circle class="v-accent" cx="200" cy="200" r="120" />
+            <path id="vinyl-ring" d="M50,200 a150,150 0 1,1 300,0 a150,150 0 1,1 -300,0" fill="none" />
+            <text class="v-ring-text">
+                <textPath href="#vinyl-ring" textLength="925" lengthAdjust="spacing" id="vinyl-ring-text">NOW PLAYING //
+                    MENU // NOW PLAYING // MENU // </textPath>
+            </text>
+            <circle class="v-label" cx="200" cy="200" r="66" />
+            <circle class="v-label-ring" cx="200" cy="200" r="50" />
+            <circle class="v-hole" cx="200" cy="200" r="9" />
+        </svg>
+        <div class="vinyl-plate"><small>Now playing</small><strong id="vinyl-name">Menu</strong></div>
+    </div>
+
     <div class="bg-dots" aria-hidden="true">
         <div class="bg-dots-move"></div>
     </div>
@@ -93,8 +144,8 @@
                             </button>
                             <button type="button" class="project-card project-card--shot">
                                 <span class="project-info"><strong>Menu UI/UX Persona 5 &amp; 3</strong><span
-                                        class="project-desc">Antarmuka menu bergaya game Persona 5 dan Persona
-                                        3.</span></span>
+                                        class="project-desc">Rancangan antarmuka menu bergaya game, terinspirasi Persona
+                                        5 dan Persona 3 Reload.</span></span>
                                 <span class="project-tags">HTML &middot; CSS</span><span class="project-go"
                                     aria-hidden="true">&#9654;</span></button>
                         </li>
@@ -106,7 +157,9 @@
                             </button>
                             <button type="button" class="project-card project-card--shot">
                                 <span class="project-info"><strong>Login Portal Kampus</strong><span
-                                        class="project-desc">Tampilan halaman login portal kampus.</span></span>
+                                        class="project-desc">Rancangan halaman login untuk portal kampus dengan tampilan
+                                        bersih dan mudah dipahami.</span><span class="project-result">Dua jalur masuk:
+                                        Dosen/Guru dan Mahasiswa/Siswa</span></span>
                                 <span class="project-tags">HTML &middot; CSS</span><span class="project-go"
                                     aria-hidden="true">&#9654;</span></button>
                         </li>
@@ -119,8 +172,9 @@
                             </button>
                             <button type="button" class="project-card project-card--shot">
                                 <span class="project-info"><strong>Dashboard Portal Kampus</strong><span
-                                        class="project-desc">Seluruh halaman dashboard yang dibutuhkan
-                                        portal.</span></span>
+                                        class="project-desc">Rancangan dashboard dosen/guru untuk memantau tugas, ujian,
+                                        dan penilaian.</span><span class="project-result">Ringkasan tugas aktif, ujian
+                                        terjadwal, dan mahasiswa belum dinilai; menu Nilai (Excel)</span></span>
                                 <span class="project-tags">HTML &middot; CSS</span><span class="project-go"
                                     aria-hidden="true">&#9654;</span></button>
                         </li>
@@ -138,7 +192,9 @@
                             <a class="project-card" href="https://github.com/bayemch/JavaScript/tree/main/Kalkulator"
                                 title="Lihat kode di GitHub" target="_blank" rel="noopener noreferrer">
                                 <span class="project-info"><strong>Kalkulator Web</strong><span
-                                        class="project-desc">Kalkulator berbasis web dengan banyak fungsi.</span></span>
+                                        class="project-desc">Kalkulator berbasis web dengan tampilan gelap dan tombol
+                                        yang lengkap.</span><span class="project-result">Operasi + − × ÷, persen, dan
+                                        hapus per digit</span></span>
                                 <span class="project-tags">JavaScript</span><span class="project-go"
                                     aria-hidden="true">&#9654;</span></a>
                             <a class="project-demo" href="https://bayemch.github.io/JavaScript/Kalkulator/"
@@ -154,7 +210,9 @@
                             <a class="project-card" href="https://github.com/bayemch/JavaScript/tree/main/to-do-list"
                                 title="Lihat kode di GitHub" target="_blank" rel="noopener noreferrer">
                                 <span class="project-info"><strong>To-Do List Web</strong><span
-                                        class="project-desc">Daftar tugas berbasis web.</span></span>
+                                        class="project-desc">Aplikasi daftar tugas berbasis web untuk mencatat dan
+                                        memantau pekerjaan.</span><span class="project-result">Tambah, centang, dan
+                                        hapus tugas; ada penghitung tugas selesai</span></span>
                                 <span class="project-tags">JavaScript</span><span class="project-go"
                                     aria-hidden="true">&#9654;</span></a>
                             <a class="project-demo" href="https://bayemch.github.io/JavaScript/to-do-list/"
@@ -170,7 +228,9 @@
                             <a class="project-card" href="https://github.com/bayemch/JavaScript/tree/main/apk-cuaca"
                                 title="Lihat kode di GitHub" target="_blank" rel="noopener noreferrer">
                                 <span class="project-info"><strong>Aplikasi Cuaca</strong><span
-                                        class="project-desc">Website cuaca yang memakai API.</span></span>
+                                        class="project-desc">Aplikasi cuaca berbasis web yang mengambil data langsung
+                                        dari API.</span><span class="project-result">Cari kota, tampilkan suhu,
+                                        kelembapan, dan kecepatan angin</span></span>
                                 <span class="project-tags">JavaScript &middot; API</span><span class="project-go"
                                     aria-hidden="true">&#9654;</span></a>
                             <a class="project-demo" href="https://bayemch.github.io/JavaScript/apk-cuaca/"
@@ -297,6 +357,17 @@
             </div>
         </div>
     </div>
+
+    <button class="motion-toggle" id="motion-toggle" type="button" aria-pressed="false" aria-label="Matikan animasi"
+        title="Matikan animasi">
+        <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+            <g class="ic-pause">
+                <rect x="4.5" y="3.5" width="4" height="13" />
+                <rect x="11.5" y="3.5" width="4" height="13" />
+            </g>
+            <path class="ic-play" d="M6 3.5l10 6.5-10 6.5z" />
+        </svg>
+    </button>
 
     <button class="theme-toggle" id="theme-toggle" type="button" role="switch" aria-checked="false"
         aria-label="Mode terang">

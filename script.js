@@ -127,9 +127,27 @@ function finishIntro() {
 }
 
 // Penanda posisi: pilar kiri (mode terang) menampilkan nama menu yang sedang dibuka
+// Piringan hitam (mode gelap): teks melingkar dan papan nama mengikuti menu yang dibuka
+function updateVinyl(name) {
+    const ring = document.getElementById("vinyl-ring-text");
+    const plate = document.getElementById("vinyl-name");
+    if (!ring || !plate) return;
+    const label = name.toUpperCase();
+    ring.textContent = ("NOW PLAYING // " + label + " // ").repeat(2);
+    if (plate.textContent === label) return;
+    plate.textContent = label;
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        plate.animate(
+            [{ opacity: 0, transform: "translateX(28px)" }, { opacity: 1, transform: "none" }],
+            { duration: 350, easing: "cubic-bezier(0.2, 0.8, 0.2, 1)" }
+        );
+    }
+}
+
 function setSection(name) {
     document.body.dataset.section = name;
     document.body.style.setProperty("--len", name.length);
+    updateVinyl(name);
 }
 
 function showMenu() {
@@ -167,7 +185,8 @@ const BAR_STEP = 35;       // ms, jeda antar strip
 const HOLD = 360;          // ms, lama layar tertutup (tulisan besar tampil)
 const ENABLE_SHAKE = true; // false = matikan getaran layar
 const phaseTime = BAR_DURATION + BAR_STEP * (barColors.length - 1);
-const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const osReduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+let reduceMotion = osReduceMotion || document.documentElement.dataset.motion === "off";
 
 const overlay = document.createElement("div");
 overlay.className = "transition";
@@ -445,3 +464,21 @@ document.querySelectorAll(".skill-bar").forEach((bar) => {
 document.querySelectorAll(".project-card--shot").forEach((card) => {
     card.addEventListener("click", () => card.closest("li").querySelector(".project-thumb").click());
 });
+
+// ===== Tombol matikan animasi: efek latar berhenti dan transisi layar dilewati =====
+const motionBtn = document.getElementById("motion-toggle");
+
+function applyMotion(off, save = true) {
+    root.dataset.motion = off ? "off" : "on";
+    motionBtn.setAttribute("aria-pressed", off);
+    const label = off ? "Nyalakan animasi" : "Matikan animasi";
+    motionBtn.setAttribute("aria-label", label);
+    motionBtn.title = label;
+    reduceMotion = off || osReduceMotion;
+    if (save) {
+        try { localStorage.setItem("motion", off ? "off" : "on"); } catch (e) { /* abaikan */ }
+    }
+}
+
+applyMotion(root.dataset.motion === "off", false);
+motionBtn.addEventListener("click", () => applyMotion(root.dataset.motion !== "off"));
