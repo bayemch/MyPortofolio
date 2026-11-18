@@ -415,7 +415,7 @@ document.querySelectorAll(".project-thumb").forEach((btn) => {
     btn.addEventListener("click", () => {
         const img = btn.querySelector("img");
         lightboxImg.src = img.currentSrc || img.src;
-        lightboxImg.alt = "Tangkapan layar " + btn.getAttribute("aria-label").replace("Perbesar tangkapan layar: ", "");
+        lightboxImg.alt = (btn.dataset.kind || "Tangkapan layar") + " " + btn.dataset.title.replace("&amp;", "&");
         lightboxCap.textContent = btn.dataset.title.replace("&amp;", "&");
         lightbox.showModal();
         requestAnimationFrame(() => lightbox.classList.add("open"));
