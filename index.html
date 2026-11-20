@@ -469,22 +469,69 @@
         <div class="panel" id="skill" hidden>
             <button class="back-button"><span class="label">&larr; Kembali</span></button>
             <h2>Skill</h2>
-            <div class="panel-body">
-                <!-- Ubah angka data-level (1-10) dan teks 7/10 sesuai kemampuanmu. Level 10 mendapat label MAX. -->
-                <ul class="skill-list">
-                    <li class="skill-row" data-level="8"><span class="skill-name">HTML</span><span
-                            class="skill-level">8/10</span></li>
-                    <li class="skill-row" data-level="7"><span class="skill-name">CSS</span><span
-                            class="skill-level">7/10</span></li>
-                    <li class="skill-row" data-level="7"><span class="skill-name">JavaScript</span><span
-                            class="skill-level">7/10</span></li>
-                    <li class="skill-row" data-level="6"><span class="skill-name">PHP</span><span
-                            class="skill-level">6/10</span></li>
-                    <li class="skill-row" data-level="5"><span class="skill-name">Java</span><span
-                            class="skill-level">5/10</span></li>
-                    <li class="skill-row" data-level="5"><span class="skill-name">C#</span><span
-                            class="skill-level">5/10</span></li>
-                </ul>
+            <div class="panel-body project-body">
+                <!-- Ubah angka data-level (1-10) dan teks x/10 sesuai kemampuanmu. Level 10 mendapat label MAX. -->
+                <section class="skill-group">
+                    <button type="button" class="skill-toggle" aria-expanded="false" aria-controls="skill-pemrograman">
+                        <span class="st-no" aria-hidden="true">01</span>
+                        <span class="st-title">Pemrograman</span>
+                        <span class="st-count"></span>
+                        <span class="st-arrow" aria-hidden="true">&#9654;</span>
+                    </button>
+                    <div class="skill-body">
+                        <div class="skill-inner" id="skill-pemrograman">
+                            <ul class="skill-list">
+                                <li class="skill-row" data-level="8"><span class="skill-name">HTML</span><span
+                                        class="skill-level">8/10</span></li>
+                                <li class="skill-row" data-level="7"><span class="skill-name">CSS</span><span
+                                        class="skill-level">7/10</span></li>
+                                <li class="skill-row" data-level="7"><span class="skill-name">JavaScript</span><span
+                                        class="skill-level">7/10</span></li>
+                                <li class="skill-row" data-level="6"><span class="skill-name">PHP</span><span
+                                        class="skill-level">6/10</span></li>
+                                <li class="skill-row" data-level="5"><span class="skill-name">Java</span><span
+                                        class="skill-level">5/10</span></li>
+                                <li class="skill-row" data-level="5"><span class="skill-name">C#</span><span
+                                        class="skill-level">5/10</span></li>
+                                <li class="skill-row" data-level="5"><span class="skill-name">Python</span><span
+                                        class="skill-level">5/10</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Grup Jaringan disusun dari daftar materi Ujikom (MikroTik). Level di bawah adalah perkiraan awal: ubah data-level dan teks x/10 sesuai kemampuanmu.
+                     Aturan yang dipakai: nilai Ujikom 90 = 6, nilai 95&ndash;98 = 7, dan tidak melebihi 7 karena ini uji sekolah. -->
+                <section class="skill-group">
+                    <button type="button" class="skill-toggle" aria-expanded="false" aria-controls="skill-jaringan">
+                        <span class="st-no" aria-hidden="true">02</span>
+                        <span class="st-title">Jaringan</span>
+                        <span class="st-count"></span>
+                        <span class="st-arrow" aria-hidden="true">&#9654;</span>
+                    </button>
+                    <div class="skill-body">
+                        <div class="skill-inner" id="skill-jaringan">
+                            <ul class="skill-list">
+                                <li class="skill-row" data-level="6"><span class="skill-name">Kabel LAN</span><span
+                                        class="skill-level">6/10</span></li>
+                                <li class="skill-row" data-level="6"><span class="skill-name">Instal OS</span><span
+                                        class="skill-level">6/10</span></li>
+                                <li class="skill-row" data-level="7"><span class="skill-name">IP &amp; DHCP</span><span
+                                        class="skill-level">7/10</span></li>
+                                <li class="skill-row" data-level="6"><span class="skill-name">DNS &amp; SNTP</span><span
+                                        class="skill-level">6/10</span></li>
+                                <li class="skill-row" data-level="7"><span class="skill-name">NAT &amp;
+                                        Bridge</span><span class="skill-level">7/10</span></li>
+                                <li class="skill-row" data-level="7"><span class="skill-name">Firewall</span><span
+                                        class="skill-level">7/10</span></li>
+                                <li class="skill-row" data-level="7"><span class="skill-name">Hotspot</span><span
+                                        class="skill-level">7/10</span></li>
+                                <li class="skill-row" data-level="7"><span class="skill-name">Wireless</span><span
+                                        class="skill-level">7/10</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
                 <!-- Skala level: sesuaikan angka data-level di atas dengan jujur -->
                 <p class="skill-legend">
                     <span>1&ndash;3 <b>Dasar</b></span>

@@ -754,7 +754,7 @@ body::after {
 }
 
 .panel:not([hidden]) .entry,
-.panel:not([hidden]) .skill-list li,
+.panel:not([hidden]) .skill-group.open .skill-list li,
 .panel:not([hidden]) .edu-card {
     animation: item-in 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both;
     animation-delay: calc(0.3s + var(--k, 0) * 90ms);
@@ -1327,9 +1327,9 @@ html::before {
 }
 
 /* Segmen terisi satu per satu; fill-mode "backwards" agar hover tetap bisa mengubah transform */
-.panel:not([hidden]) .seg.on {
+.panel:not([hidden]) .skill-group.open .seg.on {
     animation: seg-fill 0.4s cubic-bezier(0.2, 1.4, 0.4, 1) backwards;
-    animation-delay: calc(0.6s + var(--k, 0) * 0.12s + var(--s, 0) * 60ms);
+    animation-delay: calc(0.25s + var(--k, 0) * 0.07s + var(--s, 0) * 50ms);
 }
 
 @keyframes seg-fill {
@@ -2605,4 +2605,153 @@ html::before {
     background: var(--shape);
     outline: none;
     opacity: 1;
+}
+
+/* ===== Skill: kelompok akordeon + kontainer abstrak bersudut ===== */
+.skill-group+.skill-group {
+    margin-top: 14px;
+}
+
+.skill-toggle {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 1fr auto auto;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    padding: 14px 24px 14px 16px;
+    border: none;
+    background: var(--ink);
+    color: var(--text);
+    font-family: var(--font-display);
+    font-size: 1.7rem;
+    text-align: left;
+    text-transform: uppercase;
+    cursor: pointer;
+    clip-path: polygon(0 0, calc(100% - 36px) 0, 100% 36px, 100% 100%, 0 100%);
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.skill-toggle .st-no {
+    padding: 0.05em 0.7em 0.05em 0.5em;
+    background: var(--hover);
+    color: var(--on-hover);
+    clip-path: polygon(0 0, 100% 0, 80% 100%, 0 100%);
+}
+
+.skill-toggle .st-count {
+    color: var(--muted);
+    font-size: 0.95rem;
+    letter-spacing: 0.1em;
+}
+
+.skill-toggle .st-arrow {
+    font-size: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.skill-toggle:hover,
+.skill-toggle:focus-visible,
+.skill-group.open .skill-toggle {
+    background: var(--shape);
+    color: #ffffff;
+    outline: none;
+}
+
+.skill-toggle:hover .st-count,
+.skill-toggle:focus-visible .st-count,
+.skill-group.open .st-count {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.skill-toggle:focus-visible {
+    box-shadow: inset 0 0 0 3px #ffffff;
+}
+
+.skill-group.open .st-arrow {
+    transform: rotate(90deg);
+}
+
+/* Isi turun ke bawah dengan animasi tinggi */
+.skill-body {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.skill-group.open .skill-body {
+    grid-template-rows: 1fr;
+}
+
+.skill-inner {
+    min-height: 0;
+    overflow: hidden;
+}
+
+.skill-inner .skill-list {
+    padding: 12px 0 6px;
+}
+
+/* Baris skill: sudut terpotong diagonal, balok aksen di kiri, garis-garis halus di kanan */
+.skill-list .skill-row {
+    position: relative;
+    padding: 14px 30px 14px 30px;
+    border-radius: 0;
+    background: var(--surface);
+    clip-path: polygon(0 0, calc(100% - 26px) 0, 100% 26px, 100% 100%, 22px 100%, 0 calc(100% - 22px));
+}
+
+.skill-list .skill-row::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 8px;
+    background: var(--hover);
+}
+
+.skill-list .skill-row::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 90px;
+    background: repeating-linear-gradient(115deg, transparent 0 6px, var(--hover) 6px 8px);
+    opacity: 0.16;
+    pointer-events: none;
+}
+
+.skill-list .skill-row:hover {
+    background: var(--alt);
+    box-shadow: none;
+}
+
+.skill-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.panel:not([hidden]) .skill-group.open .skill-list li {
+    animation-delay: calc(0.1s + var(--k, 0) * 60ms);
+}
+
+@media (max-width: 640px) {
+    .skill-toggle {
+        font-size: 1.35rem;
+        gap: 10px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .skill-body,
+    .skill-toggle .st-arrow {
+        transition: none;
+    }
 }

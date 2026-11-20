@@ -172,7 +172,7 @@ function showPanel(id) {
     });
     const panel = document.getElementById(id);
     // Nomor urut dipakai CSS agar tiap entri meluncur masuk bergantian
-    panel.querySelectorAll(".entry, .skill-list li, .social-list li, .project-list li, .edu-card").forEach((item, k) => {
+    panel.querySelectorAll(".entry, .social-list li, .project-list li, .edu-card").forEach((item, k) => {
         item.style.setProperty("--k", k);
     });
     panel.querySelector(".back-button").focus();
@@ -411,15 +411,41 @@ function closeLightbox() {
     setTimeout(() => lightbox.open && lightbox.close(), reduceMotion ? 0 : 300);
 }
 
+// Sertifikat bisa punya beberapa gambar (data-gallery, dipisah koma); panah di pratinjau untuk berpindah
+let shots = [];
+let shotIndex = 0;
+let shotKind = "";
+let shotTitle = "";
+const lbPrev = lightbox.querySelector(".lightbox-prev");
+const lbNext = lightbox.querySelector(".lightbox-next");
+
+function showShot(i) {
+    shotIndex = (i + shots.length) % shots.length;
+    const many = shots.length > 1;
+    lightboxImg.src = shots[shotIndex];
+    lightboxImg.alt = shotKind + " " + shotTitle + (many ? ", halaman " + (shotIndex + 1) + " dari " + shots.length : "");
+    lightboxCap.textContent = shotTitle + (many ? " (" + (shotIndex + 1) + "/" + shots.length + ")" : "");
+}
+
 document.querySelectorAll(".project-thumb").forEach((btn) => {
     btn.addEventListener("click", () => {
         const img = btn.querySelector("img");
-        lightboxImg.src = img.currentSrc || img.src;
-        lightboxImg.alt = (btn.dataset.kind || "Tangkapan layar") + " " + btn.dataset.title.replace("&amp;", "&");
-        lightboxCap.textContent = btn.dataset.title.replace("&amp;", "&");
+        shots = btn.dataset.gallery ? btn.dataset.gallery.split(",") : [img.currentSrc || img.src];
+        shotKind = btn.dataset.kind || "Tangkapan layar";
+        shotTitle = btn.dataset.title.replace("&amp;", "&");
+        lbPrev.hidden = lbNext.hidden = shots.length < 2;
+        showShot(0);
         lightbox.showModal();
         requestAnimationFrame(() => lightbox.classList.add("open"));
     });
+});
+
+lbPrev.addEventListener("click", () => showShot(shotIndex - 1));
+lbNext.addEventListener("click", () => showShot(shotIndex + 1));
+lightbox.addEventListener("keydown", (e) => {
+    if (shots.length < 2) return;
+    if (e.key === "ArrowLeft") showShot(shotIndex - 1);
+    if (e.key === "ArrowRight") showShot(shotIndex + 1);
 });
 
 // Klik di luar gambar atau tombol Tutup = tutup; Esc juga memakai animasi yang sama
@@ -482,3 +508,21 @@ function applyMotion(off, save = true) {
 
 applyMotion(root.dataset.motion === "off", false);
 motionBtn.addEventListener("click", () => applyMotion(root.dataset.motion !== "off"));
+
+// ===== Skill: kelompok akordeon. Awalnya hanya judul kelompok; klik membuka daftar dengan animasi ke bawah =====
+function setSkillGroup(group, open) {
+    group.classList.toggle("open", open);
+    group.querySelector(".skill-toggle").setAttribute("aria-expanded", open);
+    group.querySelector(".skill-inner").inert = !open;
+    if (open) group.querySelectorAll(".skill-row").forEach((row, i) => row.style.setProperty("--k", i));
+}
+
+document.querySelectorAll(".skill-group").forEach((group) => {
+    group.querySelector(".st-count").textContent = group.querySelectorAll(".skill-row").length + " skill";
+    setSkillGroup(group, false);
+    group.querySelector(".skill-toggle").addEventListener("click", () => {
+        const willOpen = !group.classList.contains("open");
+        document.querySelectorAll(".skill-group.open").forEach((g) => setSkillGroup(g, false));
+        if (willOpen) setSkillGroup(group, true);
+    });
+});
